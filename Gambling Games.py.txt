@@ -1,0 +1,124 @@
+﻿https://discuss.codecademy.com/t/games-of-chance-challenge-project-python/462399/15
+
+
+
+
+
+
+
+
+import random
+
+
+money = 100
+
+
+#Write your game of chance functions here
+def coin_flip(guess,bet):
+  if bet <= 0:
+    print("-----")
+    print("Please bet higher.")
+    return 0
+  print("Coin is being flipped. You guess " + guess)
+  print("-----")
+  result = random.randint(1,2)
+  if result == 1:
+    print("Heads.")
+  elif result == 2:
+    print("Tails.")
+  if (guess == "Heads" and result == 1) or (guess == "Tails" and result ==2):
+    print("You won " + str(bet)+" dollars!")
+    print("--")
+    return bet
+  else:
+    print("You lost " +str(bet)+" dollars. Better luck next time.")
+    print("--")
+    return -bet
+  
+def dice_game(guess, bet):
+  if bet <=0:
+    print("-----")
+    print("Please bet higher.")
+    return 0
+  print("Die are being tossed. You guess " + guess)
+  print("-----")
+  dice1 = random.randint(1,6) 
+  dice2 = random.randint(1,6)
+  total = dice1 + dice2
+  if (guess == "Even" and total % 2 == 0):
+    print("You won " +str(bet)+" dollars!")
+    print("--")
+    return bet
+  if (guess == "Odd" and total % 2 ==1):
+    print("You won " +str(bet)+" dollars!")
+    print("--")
+  else:
+    print("You lost " +str(bet)+" dollars. Better luck next time.")
+    print("--")
+    return -bet
+
+
+  
+def card_game(bet):
+  if bet <=0:
+    print("-----")
+    print("Please bet higher.")
+    return 0
+  else:
+    cards = [1,2,3,4,5,6,7,8,9,10,11,12,13] * 4
+    cards.sort()
+    player = random.choice(cards)
+    cards.remove(player)
+    opponent = random.choice(cards)
+  print("-----")
+  print("You draw " +str(player) +".")
+  print("They draw " +str(opponent) +".")
+  if player > opponent:
+    print("You won " +str(bet)+" dollars!")
+    print("--")
+    return bet
+  elif player < opponent:
+    print("You lost " +str(bet)+" dollars. Better luck next time.")
+    print("--")
+    return -bet
+  elif player == opponent:
+    print("You tied.")
+    return 0
+  
+def roulette(guess, bet):
+  if bet <=0:
+    print("-----")
+    print("Please bet higher.")
+    return 0
+  else:
+    print("-----")
+    print("Roulette wheel is spinning. You bet "+str(bet) +".")
+    result = random.randint(0,37)
+    if result == 37:
+      print("The wheel landed on 00.")
+    else:
+        print("The wheel landed on " +str(result) + ".")
+    if (guess == "Even" and result % 2 == 0 and result != 0):
+      print("You won " +str(bet)+" dollars!")
+      return bet
+    elif (guess == "Odd" and result % 2 == 1 and result != 37):
+      print("You won " +str(bet)+" dollars!")
+      return bet
+    elif (guess == result):
+      print("You won " +str(35*bet)+" dollars!")
+      return 35*bet
+    else:
+      print("You lost " +str(bet)+" dollars. Better luck next time.")
+      print("--")
+      return -bet
+    
+
+
+#Call your game of chance functions here
+money += coin_flip("Tails", 10)
+money += dice_game("Even", 10)
+money += card_game(10)
+money += roulette("Even", 10)
+money += roulette("Odd", 10)
+money += roulette(37,10)
+print("Your total amount of money is " + str(money))
